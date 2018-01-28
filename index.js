@@ -22,7 +22,7 @@ bot.onText(/\/theme (.+)/, (msg, match) => {
   });
 });
 
-bot.onText(/\/randomTheme/, (msg) => {
+bot.onText(/\/randomtheme/, (msg) => {
   if (msg.chat.id != tg.orgChatId) { return; }
   sheets.getRandom((theme) => {
     if (!theme) { return; }
