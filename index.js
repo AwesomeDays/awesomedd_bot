@@ -29,7 +29,3 @@ bot.onText(/\/randomTheme/, (msg) => {
     return bot.sendMessage(tg.orgChatId, `Random theme: *${theme}*`, { parse_mode: 'markdown' });
   });
 });
-
-bot.on('message', (msg) => {
-  console.log(msg);
-});
