@@ -24,8 +24,16 @@ bot.onText(/\/theme (.+)/, (msg, match) => {
 
 bot.onText(/\/randomtheme/, (msg) => {
   if (msg.chat.id != tg.orgChatId) { return; }
-  sheets.getRandom((theme) => {
+  sheets.getRandomTheme((theme) => {
     if (!theme) { return; }
     return bot.sendMessage(tg.orgChatId, `Random theme: *${theme}*`, { parse_mode: 'markdown' });
+  });
+});
+
+bot.onText(/\/allthemes/, (msg) => {
+  if (msg.chat.id != tg.orgChatId) { return; }
+  sheets.getAllThemes((themes) => {
+    if (!themes) { return; }
+    return bot.sendMessage(tg.orgChatId, `Themes list: *${themes.join(', ')}*`, { parse_mode: 'markdown' });
   });
 });

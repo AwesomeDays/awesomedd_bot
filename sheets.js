@@ -23,14 +23,12 @@ function addRow(newRow, cb) {
   });
 }
 
-function getRandom(cb) {
+function getRandomTheme(cb) {
   sheet.getCells((err, cells) => {
     if (err) { return cb(false); }
     const themes = [];
     cells.forEach((cell) => {
-      if (cell.col == 2) {
-        themes.push(cell.value);
-      }
+      if (cell.col == 2) { themes.push(cell.value); }
     });
     random.generateIntegers({ min: 1, max: themes.length - 1, n: 1 }).then((result) => {
       cb(themes[result.random.data]);
@@ -38,7 +36,19 @@ function getRandom(cb) {
   });
 }
 
+function getAllThemes(cb) {
+  sheet.getCells((err, cells) => {
+    if (err) { return cb(false); }
+    const themes = [];
+    cells.forEach((cell) => {
+      if (cell.col == 2) { themes.push(cell.value); }
+    });
+    cb(themes);
+  });
+}
+
 module.exports = {
   addRow,
-  getRandom,
+  getRandomTheme,
+  getAllThemes,
 }
