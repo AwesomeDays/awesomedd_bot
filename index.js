@@ -7,6 +7,7 @@ const tg = config.tg;
 const bot = new TelegramBot(tg.token, { polling: true });
 
 bot.onText(/\/theme (.+)/, (msg, match) => {
+  if (msg.chat.id != tg.orgChatId) { return; }
   const theme = match[1];
   if (!theme) { return; }
   const user = msg.from.username ? `@${msg.from.username}` : `@${msg.from.first_name}`;
@@ -22,8 +23,13 @@ bot.onText(/\/theme (.+)/, (msg, match) => {
 });
 
 bot.onText(/\/randomTheme/, (msg) => {
+  if (msg.chat.id != tg.orgChatId) { return; }
   sheets.getRandom((theme) => {
     if (!theme) { return; }
     return bot.sendMessage(tg.orgChatId, `Random theme: *${theme}*`, { parse_mode: 'markdown' });
   });
+});
+
+bot.on('message', (msg) => {
+  console.log(msg);
 });
